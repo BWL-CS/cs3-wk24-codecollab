@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Outfit Tracker</title>
+	<style>
+		body { background-color: pink; font-family: sans-serif;  }
+		h1 { color: hotpink; text-align: center; }
+		button { background-color: hotpink; color: white; }
+	</style>
+</head>
+<body>
+	<h1>Outfit Tracker</h1>
+	
+	<hr>
+	
+	<div id="form">
+		<h2>Add an Outfit:</h2>
+		<!-- UPDATED FORM to include new input types -->
+		<form method="POST" action="/add">
+			<input type="text" name="top" placeholder="Top" required>
+			<input type="text" name="bottom" placeholder="Bottom">
+			<br>
+			<!-- Dropdown for shoes -->
+			<select name="shoes" required>
+				<option value="">--Select Shoes--</option>
+				<option value="Sneakers">Sneakers</option>
+				<option value="Boots">Boots</option>
+				<option value="Sandals">Sandals</option>
+				<option value="Heels">Heels</option>
+				<option value="Flats">Flats</option>
+			</select>
+			<br>
+			<!-- Toggle input field for weather -->
+			<div>
+				<label>
+					<input type="radio" name="weather" value="Warm" required>
+					Warm Weather
+				</label>
+				<label>
+					<input type="radio" name="weather" value="Cold">
+					Cold Weather
+				</label>
+			</div>
+			<br>
+			<button type="submit">ADD OUTFIT</button>
+		</form>
+	</div>
+	
+	<hr>
+
+	<div id="list">
+		<h2>List of Outfits:</h2>
+		<ul>
+			{% for outfit in outfits %}
+			<li>		
+				{{ outfit.top }}
+				
+				{% if outfit.bottom %}
+				and {{ outfit.bottom }}
+				{% endif %}
+				
+				{% if outfit.shoes %}
+				with {{ outfit.shoes }}
+				{% endif %}
+				<button>
+					<a href="/delete/{{ outfit.id }}">DELETE</a>
+				</button>
+			</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+</body>
+</html>
